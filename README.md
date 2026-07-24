@@ -27,7 +27,7 @@ Then from within SBCL I can load it with:
 
 ## Usage
 
-I usually do `(use-package :com.wutka.f-binheap)` to put the binheap
+I usually do `(use-package :f-binheap)` to put the binheap
 functions into my local namespace.
 
 ### make-binheap
@@ -120,7 +120,7 @@ then pops off the values:
 * (asdf:operate 'asdf:load-op :f-binheap)
 #<ASDF/LISP-ACTION:LOAD-OP >
 #<ASDF/PLAN:SEQUENTIAL-PLAN {1201A14283}>
-* (use-package :com.wutka.f-binheap)
+* (use-package :f-binheap)
 T
 * (defun dump-binheap (bh)
            (when (not (binheap-emptyp bh))
@@ -128,21 +128,21 @@ T
              (dump-binheap (binheap-pop bh))))
 DUMP-BINHEAP
 * (setf myheap (make-binheap))
-#S(COM.WUTKA.F-BINHEAP::BH :ROW 0 :COL 0 :ROOT NIL :COMPARE #<FUNCTION <>)
+#S(F-BINHEAP::BH :ROW 0 :COL 0 :ROOT NIL :COMPARE #<FUNCTION <>)
 * (setf myheap (reduce #'binheap-push '(7 3 12 8) :initial-value myheap))
-#S(COM.WUTKA.F-BINHEAP::BH
+#S(F-BINHEAP::BH
    :ROW 2
    :COL 1
-   :ROOT #S(COM.WUTKA.F-BINHEAP::BHNODE
+   :ROOT #S(F-BINHEAP::BHNODE
             :V 3
-            :LEFT #S(COM.WUTKA.F-BINHEAP::BHNODE
+            :LEFT #S(F-BINHEAP::BHNODE
                      :V 7
-                     :LEFT #S(COM.WUTKA.F-BINHEAP::BHNODE
+                     :LEFT #S(F-BINHEAP::BHNODE
                               :V 8
                               :LEFT NIL
                               :RIGHT NIL)
                      :RIGHT NIL)
-            :RIGHT #S(COM.WUTKA.F-BINHEAP::BHNODE :V 12 :LEFT NIL :RIGHT NIL))
+            :RIGHT #S(F-BINHEAP::BHNODE :V 12 :LEFT NIL :RIGHT NIL))
    :COMPARE #<FUNCTION <>)
 * (dump-binheap myheap)
 3

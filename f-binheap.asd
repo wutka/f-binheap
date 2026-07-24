@@ -1,5 +1,5 @@
-(defpackage :com.wutka.binheap-system (:use :asdf :cl))
-(in-package :com.wutka.binheap-system)
+(defpackage :f-binheap-system (:use :asdf :cl))
+(in-package :f-binheap-system)
 
 (defsystem f-binheap
   :name "f-binheap"

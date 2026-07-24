@@ -1,4 +1,4 @@
-(in-package :com.wutka.f-binheap)
+(in-package :f-binheap)
 
 (defstruct bhnode
 	   (v nil)
