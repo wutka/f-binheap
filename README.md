@@ -120,8 +120,9 @@ then pops off the values:
 * (asdf:operate 'asdf:load-op :f-binheap)
 #<ASDF/LISP-ACTION:LOAD-OP >
 #<ASDF/PLAN:SEQUENTIAL-PLAN {1201A14283}>
-* 
-(defun dump-binheap (bh)
+* (use-package :com.wutka.f-binheap)
+T
+* (defun dump-binheap (bh)
            (when (not (binheap-emptyp bh))
              (format t "~a~%" (binheap-top bh))
              (dump-binheap (binheap-pop bh))))
