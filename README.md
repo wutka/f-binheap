@@ -38,7 +38,7 @@ To create a new binary heap, use `make-binheap`. For example:
 (setf myheap (make-binheap))
 ```
 
-You can also use the `:compare` keyword to specify a comparison function.
+You can also use the `:comp` keyword to specify a comparison function.
 The default is `#'<`. The
 comparison function should take two items and return true if the
 first item should be the parent of the second item. Since `#'<` is the
@@ -48,7 +48,7 @@ to have the largest number on the top, you can supply `#'>` as the
 comparison func:
 
 ```lisp
-(setf myheap (make-binheap :compare #'>))
+(setf myheap (make-binheap :comp #'>))
 ```
 
 Finally, if you have a sequence of objects to store in the heap,

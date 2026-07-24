@@ -9,10 +9,10 @@
 	   (row 0)
 	   (col 0)
 	   (root nil)
-	   (compare #'<))
+	   (comp #'<))
 
-(defun make-binheap (&key (initial-contents nil) (compare #'<))
-  (let ((bh (make-bh :compare compare)))
+(defun make-binheap (&key (initial-contents nil) (comp #'<))
+  (let ((bh (make-bh :comp comp)))
     (if initial-contents
 	(reduce #'binheap-push initial-contents :initial-value bh)
 	bh)))
@@ -26,7 +26,7 @@
 	(increment-size bh)
       ;; return a new tree with the updated last position
       (make-bh :row next-row :col next-col :root new-root
-	       :compare (bh-compare bh)))))
+	       :comp (bh-comp bh)))))
 
 (defun binheap-emptyp (bh)
   (not (bh-root bh)))
@@ -37,7 +37,7 @@
 	  ;; If there is only one item in the the heap,
 	  ;; return it and an empty heap
 	  (values (make-bh :row 0 :col 0 :root nil
-			   :compare (bh-compare bh))
+			   :comp (bh-comp bh))
 		  (bhnode-v (bh-root bh)))
 	  ;; Otherwise, remove the top element and rebalance
 	  (values (binheap-rebalance-down
@@ -83,7 +83,7 @@
 	;;; Figure out which value belongs in the current node
 	;;; and which needs to be inserted in the child
 	(multiple-value-bind (parent-val child-val)
-	    (if (funcall (bh-compare bh) item curr-val)
+	    (if (funcall (bh-comp bh) item curr-val)
 		(values item curr-val)
 		(values curr-val item))
 	  (if (= 0 (logand (bh-col bh) (ash 1 (1- row))))
@@ -150,7 +150,7 @@
 	       :root (make-bhnode :v last-item
 				  :left (bhnode-left new-root)
 				  :right (bhnode-right new-root))
-	       :compare (bh-compare bh)))))
+	       :comp (bh-comp bh)))))
 
 (defun binheap-rebalance-down-1 (bh curr-node)
   (if (not (bhnode-left curr-node)) curr-node
@@ -164,8 +164,8 @@
 	    (cond
 	      ;; If the left value is less than the current value and left is less than right
 	      ;; swap the values of curr node and left, and rebalance the left
-	      ((and (funcall (bh-compare bh) left-v v)
-		    (funcall (bh-compare bh) left-v right-v))
+	      ((and (funcall (bh-comp bh) left-v v)
+		    (funcall (bh-comp bh) left-v right-v))
 	       (make-bhnode :v left-v
 			    :left (binheap-rebalance-down-1 bh
 							    (make-bhnode :v v
@@ -174,7 +174,7 @@
 			    :right right))
 	      ;; Otherwise, if the right value is less than the current value,
 	      ;; swap the values of curr node and right, and rebalance the right
-	      ((funcall (bh-compare bh) right-v v)
+	      ((funcall (bh-comp bh) right-v v)
 	       (make-bhnode :v right-v
 			    :left left
 			    :right (binheap-rebalance-down-1 bh
@@ -189,7 +189,7 @@
 	  (let* ((left (bhnode-left curr-node))
 		 (left-v (bhnode-v left))
 		 (v (bhnode-v curr-node)))
-	    (if (funcall (bh-compare bh) left-v v)
+	    (if (funcall (bh-comp bh) left-v v)
 		(make-bhnode :v left-v
 			     :left (binheap-rebalance-down-1 bh (make-bhnode :v v
 									     :left (bhnode-left left)
@@ -200,4 +200,4 @@
 (defun binheap-rebalance-down (bh)
   (make-bh :row (bh-row bh) :col (bh-col bh)
 	   :root (binheap-rebalance-down-1 bh (bh-root bh))
-	   :compare (bh-compare bh)))
+	   :comp (bh-comp bh)))
