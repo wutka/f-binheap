@@ -116,7 +116,7 @@ don't want to use the multiple value return of `binheap-pop`. For example:
 Here is an example that creates an empty heap, populates it, and
 then pops off the values:
 
-```bash
+```lisp
 * (asdf:operate 'asdf:load-op :f-binheap)
 #<ASDF/LISP-ACTION:LOAD-OP >
 #<ASDF/PLAN:SEQUENTIAL-PLAN {1201A14283}>
