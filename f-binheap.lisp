@@ -162,25 +162,27 @@
 		 (left-v (bhnode-v left))
 		 (right-v (bhnode-v right)))
 	    (cond
-	      ;; If the left value is less than the current value and left is less than right
-	      ;; swap the values of curr node and left, and rebalance the left
+	      ;; If the left value is less than the current value and left is less
+	      ;; than right swap the values of curr node and left, and rebalance the left
 	      ((and (funcall (bh-comp bh) left-v v)
 		    (funcall (bh-comp bh) left-v right-v))
 	       (make-bhnode :v left-v
-			    :left (binheap-rebalance-down-1 bh
-							    (make-bhnode :v v
-									 :left (bhnode-left left)
-									 :right (bhnode-right left)))
+			    :left (binheap-rebalance-down-1
+				   bh
+				   (make-bhnode :v v
+						:left (bhnode-left left)
+						:right (bhnode-right left)))
 			    :right right))
 	      ;; Otherwise, if the right value is less than the current value,
 	      ;; swap the values of curr node and right, and rebalance the right
 	      ((funcall (bh-comp bh) right-v v)
 	       (make-bhnode :v right-v
 			    :left left
-			    :right (binheap-rebalance-down-1 bh
-							     (make-bhnode :v v
-									  :left (bhnode-left right)
-									  :right (bhnode-right right)))))
+			    :right (binheap-rebalance-down-1
+				    bh
+				    (make-bhnode :v v
+						 :left (bhnode-left right)
+						 :right (bhnode-right right)))))
 	      ;; If we get here, no further rebalancing is necessary
 	      (t curr-node)))
 	  
@@ -191,9 +193,11 @@
 		 (v (bhnode-v curr-node)))
 	    (if (funcall (bh-comp bh) left-v v)
 		(make-bhnode :v left-v
-			     :left (binheap-rebalance-down-1 bh (make-bhnode :v v
-									     :left (bhnode-left left)
-									     :right (bhnode-right left))))
+			     :left (binheap-rebalance-down-1
+				    bh
+				    (make-bhnode :v v
+						 :left (bhnode-left left)
+						 :right (bhnode-right left))))
 		;; Otherwise, no more rebalancing is necessary
 		curr-node)))))
 
